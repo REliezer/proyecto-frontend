@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,500;0,700;0,900;1,100&display=swap');
+
+.card {
+    flex: 0 0 calc(25% - 10px);
+    margin: 10px 5px;
+    border-radius: 15px;
+}
+
+.contenedor {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.contenido {
+    display: flex;
+    flex-wrap: wrap;
+    width: 80%;
+    padding: 20px;
+    text-align: center;
+}
+
+.imagen-categoria{
+    display: flex;
+    margin: 5px 45px;
+    width: 12rem;
+    height: 12rem;
+}
+
+.btn-outline-light:hover{
+    --bs-btn-hover-bg: #3c75d7 !important;
+}
