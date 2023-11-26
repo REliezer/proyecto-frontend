@@ -4,6 +4,8 @@
     flex: 0 0 calc(25% - 10px);
     margin: 10px 5px;
     border-radius: 15px;
+    background-size: cover;
+    background-position: center;
 }
 
 .contenedor {
@@ -21,11 +23,10 @@
     text-align: center;
 }
 
-.imagen-categoria{
+.card-body{
     display: flex;
-    margin: 5px 45px;
-    width: 12rem;
-    height: 12rem;
+    align-items: flex-end;
+    justify-content: center;
 }
 
 .btn-outline-light:hover{

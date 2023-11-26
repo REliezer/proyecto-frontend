@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,500;0,700;0,900;1,100&display=swap');
 
 html, body {
-    
+    font-family: 'Roboto', sans-serif;
     margin: 0;
     padding: 0;
 }
@@ -12,13 +12,33 @@ html, body {
     padding-right: 140px !important;
 }
 
-.navbar ul li a{
+.dropdown-menu ul li a{
     color: white;
 }
+
+.dropdown-item:hover{
+    background-color: #3c75d7;
+    font-style: italic;
+    color: white;
+}
+
 .navbar-brand{
     font-size: 25px;
     font-weight: bold;
     color: white;
 }
 
+.acciones #numeroCompra {
+    position: absolute;
+    left: 70%;
+    background: #A0333C;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #FFE6C1;
+    font-size: 0.8rem;
+}
 
