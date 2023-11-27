@@ -5,13 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Categorias</title>
+    <title>Subcategorias</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://kit.fontawesome.com/444ab6c87d.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
     <link rel="stylesheet" href="{{ asset('css/subcategorias.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/carrito.css') }}">
 </head>
 
 <body>
@@ -66,55 +67,137 @@
                 <h2 class="text-start">Categoria 1</h2>
             </div>
             <div class="contenido">
-                <div class="card" style="width: 13rem;">
+                <div class="card shadow rounded">
                     <img src="https://th-media.apjonlinecdn.com/catalog/product/cache/b3b166914d87ce343d4dc5ec5117b502/2/3/23c1_opp_maokong_27_shellwhite_t_nt_has_captaincrunchwireless_win11_coreset_front_camup_whitebg_intel.png" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">Producto 1</h5>
                         <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis, nisi!</p>
                         <p class="card-text">Lps. 00.00</p>
-                        <a href="#" class="btn btn-primary">Añadir al carrito</a>
+                        <div class="row d-flex mb-3 row" style="justify-content: space-evenly">
+                            <div class="col-4">
+                                <button type="button" class="btn btn-outline-primary" onclick="menos(1);">
+                                    <i class="fa-solid fa-circle-minus"></i>
+                                </button>
+                            </div>
+                            <div class="col-4 m-0">
+                                <input type="number" class="form-control" value="1" id="cantidadProducto1">
+                            </div>
+                            <div class="col-4">
+                                <button type="button" class="btn btn-outline-primary" onclick="mas(1);">
+                                    <i class="fa-solid fa-circle-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="d-flex mb-2 mt-2" style="justify-content: center">
+                            <a href="#" class="btn btn-primary" onclick="agregarCompra(1);">Añadir al carrito</a>
+                        </div>
                     </div>
                 </div>
-                <div class="card" style="width: 13rem;">
+                <div class="card shadow rounded">
                     <img src="https://th-media.apjonlinecdn.com/catalog/product/cache/b3b166914d87ce343d4dc5ec5117b502/2/3/23c1_opp_maokong_27_shellwhite_t_nt_has_captaincrunchwireless_win11_coreset_front_camup_whitebg_intel.png" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">Producto 2</h5>
                         <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima, doloribus.</p>
                         <p class="card-text">Lps. 00.00</p>
-                        <a href="#" class="btn btn-primary">Añadir al carrito</a>
+                        <div class="row d-flex mb-3 row" style="justify-content: space-evenly">
+                            <div class="col-4">
+                                <button type="button" class="btn btn-outline-primary" onclick="menos(2);">
+                                    <i class="fa-solid fa-circle-minus"></i>
+                                </button>
+                            </div>
+                            <div class="col-4 m-0">
+                                <input type="number" class="form-control" value="1" id="cantidadProducto2">
+                            </div>
+                            <div class="col-4">
+                                <button type="button" class="btn btn-outline-primary" onclick="mas(2);">
+                                    <i class="fa-solid fa-circle-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="d-flex mb-2 mt-2" style="justify-content: center">
+                            <a href="#" class="btn btn-primary ">Añadir al carrito</a>
+                        </div>
                     </div>
                 </div>
-                <div class="card" style="width: 13rem;">
+                <div class="card shadow rounded">
                     <img src="https://th-media.apjonlinecdn.com/catalog/product/cache/b3b166914d87ce343d4dc5ec5117b502/2/3/23c1_opp_maokong_27_shellwhite_t_nt_has_captaincrunchwireless_win11_coreset_front_camup_whitebg_intel.png" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">Producto 3</h5>
                         <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore, porro?</p>
                         <p class="card-text">Lps. 00.00</p>
-                        <a href="#" class="btn btn-primary">Añadir al carrito</a>
+                        <div class="row d-flex mb-3 row" style="justify-content: space-evenly">
+                            <div class="col-4">
+                                <button type="button" class="btn btn-outline-primary" onclick="menos();">
+                                    <i class="fa-solid fa-circle-minus"></i>
+                                </button>
+                            </div>
+                            <div class="col-4 m-0">
+                                <input type="number" class="form-control" value="1" id="cantidadProducto">
+                            </div>
+                            <div class="col-4">
+                                <button type="button" class="btn btn-outline-primary" onclick="mas();">
+                                    <i class="fa-solid fa-circle-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="d-flex mb-2 mt-2" style="justify-content: center">
+                            <a href="#" class="btn btn-primary ">Añadir al carrito</a>
+                        </div>
                     </div>
                 </div>
-                <div class="card" style="width: 13rem;">
+                <div class="card shadow rounded">
                     <img src="https://th-media.apjonlinecdn.com/catalog/product/cache/b3b166914d87ce343d4dc5ec5117b502/2/3/23c1_opp_maokong_27_shellwhite_t_nt_has_captaincrunchwireless_win11_coreset_front_camup_whitebg_intel.png" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">Producto 4</h5>
                         <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos, tempore.</p>
                         <p class="card-text">Lps. 00.00</p>
-                        <a href="#" class="btn btn-primary">Añadir al carrito</a>
+                        <div class="row d-flex mb-3 row" style="justify-content: space-evenly">
+                            <div class="col-4">
+                                <button type="button" class="btn btn-outline-primary" onclick="menos();">
+                                    <i class="fa-solid fa-circle-minus"></i>
+                                </button>
+                            </div>
+                            <div class="col-4 m-0">
+                                <input type="number" class="form-control" value="1" id="cantidadProducto">
+                            </div>
+                            <div class="col-4">
+                                <button type="button" class="btn btn-outline-primary" onclick="mas();">
+                                    <i class="fa-solid fa-circle-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="d-flex mb-2 mt-2" style="justify-content: center">
+                            <a href="#" class="btn btn-primary ">Añadir al carrito</a>
+                        </div>
                     </div>
                 </div>
-                <div class="card" style="width: 13rem;">
+                <div class="card shadow rounded">
                     <img src="https://th-media.apjonlinecdn.com/catalog/product/cache/b3b166914d87ce343d4dc5ec5117b502/2/3/23c1_opp_maokong_27_shellwhite_t_nt_has_captaincrunchwireless_win11_coreset_front_camup_whitebg_intel.png" class="card-img-top" alt="...">
                     <div class="card-body">
-                        <h5 class="card-title">Producto 4</h5>
+                        <h5 class="card-title">Producto 5</h5>
                         <p class="card-text">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Facere, pariatur!</p>
                         <p class="card-text">Lps. 00.00</p>
-                        <a href="#" class="btn btn-primary">Añadir al carrito</a>
+                        <div class="row d-flex mb-3 row" style="justify-content: space-evenly">
+                            <div class="col-4">
+                                <button type="button" class="btn btn-outline-primary" onclick="menos();">
+                                    <i class="fa-solid fa-circle-minus"></i>
+                                </button>
+                            </div>
+                            <div class="col-4 m-0">
+                                <input type="number" class="form-control" value="1" id="cantidadProducto">
+                            </div>
+                            <div class="col-4">
+                                <button type="button" class="btn btn-outline-primary" onclick="mas();">
+                                    <i class="fa-solid fa-circle-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="d-flex mb-2 mt-2" style="justify-content: center">
+                            <a href="#" class="btn btn-primary ">Añadir al carrito</a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="panel-der">
-
         </div>
     </div>
 
@@ -127,7 +210,26 @@
         <div class="offcanvas-body">
             <div class="fondo-linea">
                 <div id="pedidos">
-
+                    <div class="tarjetaProducto fondo-blanco mb-2" id="div1">
+                        <div class="productoO" id="nombreProductoO"> Producto 1</div>
+                        <div class="imagenProductoO" id="imagen">
+                            <img src="" width="60" height="60" alt="">
+                        </div>
+                        <div class="div3 cestaDescripcion" id="cantPrecioProducto">2 x Lps. 10.00</div>
+                        <div class="subtotal">Subtotal</div>
+                        <div class="div5 cestaDescripcion" id="subtotalPrecioO">Lps. 20.00</div>
+                        <div class="icono" id="ePed1" onclick="eliminarPedido(1);"><i class="fa-regular fa-trash-can"></i></div>
+                    </div>
+                    <div class="tarjetaProducto fondo-blanco mb-2" id="div2">
+                        <div class="productoO" id="nombreProductoO"> Producto 2</div>
+                        <div class="imagenProductoO" id="imagen">
+                            <img src="" width="60" height="60" alt="">
+                        </div>
+                        <div class="div3 cestaDescripcion" id="cantPrecioProducto">2 x Lps. 10.00</div>
+                        <div class="subtotal">Subtotal</div>
+                        <div class="div5 cestaDescripcion" id="subtotalPrecioO">Lps. 20.00</div>
+                        <div class="icono" id="ePed1" onclick="eliminarPedido(2);"><i class="fa-regular fa-trash-can"></i></div>
+                    </div>
                 </div>
                 <form>
                     <div class="row">
@@ -156,13 +258,14 @@
 
                     <div class="d-flex mb-2 mt-2" style="justify-content: center">
                         <button type="button" class="btn btn-danger texto-general boton" data-bs-dismiss="offcanvas"
-                            onclick="mostrarEnvio();">Continuar</button>
+                            onclick="">Continuar</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 
+    <script src="{{ asset('js/main.js') }}"></script>
 </body>
 
 </html>

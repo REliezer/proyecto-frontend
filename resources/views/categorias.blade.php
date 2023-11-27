@@ -12,6 +12,7 @@
     <script src="https://kit.fontawesome.com/444ab6c87d.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
     <link rel="stylesheet" href="{{ asset('css/categorias.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/carrito.css') }}">
 </head>
 
 <body>
@@ -53,7 +54,7 @@
         <div class="contenido">
             <div class="card" style="width: 12rem; height: 15rem; background-image: url('https://th-media.apjonlinecdn.com/catalog/product/cache/b3b166914d87ce343d4dc5ec5117b502/2/3/23c1_opp_maokong_27_shellwhite_t_nt_has_captaincrunchwireless_win11_coreset_front_camup_whitebg_intel.png');">
                 <div class="card-body">
-                    <a href="#" class="btn btn-primary">Categoria 1</a>
+                    <a href="{{route('subcategorias.index')}}" class="btn btn-primary">Categoria 1</a>
                 </div>
             </div>
             <div class="card" style="width: 12rem; height: 15rem; background-image: url('https://th-media.apjonlinecdn.com/catalog/product/cache/b3b166914d87ce343d4dc5ec5117b502/2/3/23c1_opp_maokong_27_shellwhite_t_nt_has_captaincrunchwireless_win11_coreset_front_camup_whitebg_intel.png');">
@@ -88,13 +89,32 @@
         <div class="offcanvas-body">
             <div class="fondo-linea">
                 <div id="pedidos">
-
+                    <div class="tarjetaProducto fondo-blanco mb-2" id="div1">
+                        <div class="productoO" id="nombreProductoO"> Producto 1</div>
+                        <div class="imagenProductoO" id="imagen">
+                            <img src="" width="60" height="60" alt="">
+                        </div>
+                        <div class="div3 cestaDescripcion" id="cantPrecioProducto">2 x Lps. 10.00</div>
+                        <div class="subtotal">Subtotal</div>
+                        <div class="div5 cestaDescripcion" id="subtotalPrecioO">Lps. 20.00</div>
+                        <div class="icono" id="ePed1" onclick="eliminarPedido(1);"><i class="fa-regular fa-trash-can"></i></div>
+                    </div>
+                    <div class="tarjetaProducto fondo-blanco mb-2" id="div2">
+                        <div class="productoO" id="nombreProductoO"> Producto 2</div>
+                        <div class="imagenProductoO" id="imagen">
+                            <img src="" width="60" height="60" alt="">
+                        </div>
+                        <div class="div3 cestaDescripcion" id="cantPrecioProducto">2 x Lps. 10.00</div>
+                        <div class="subtotal">Subtotal</div>
+                        <div class="div5 cestaDescripcion" id="subtotalPrecioO">Lps. 20.00</div>
+                        <div class="icono" id="ePed1" onclick="eliminarPedido(2);"><i class="fa-regular fa-trash-can"></i></div>
+                    </div>
                 </div>
                 <form>
                     <div class="row">
                         <div class="col-4"></div>
                         <div class="col-4">
-                            <label class="form-label cuentaCestaD">Total:</label>
+                            <label class="form-label cuentaCestaD">Subtotal:</label>
                         </div>
                         <div class="col-4">
                             <label class="form-label cuentaCestaT" id="totalCompra">Lps. 0.00</label>
@@ -108,13 +128,6 @@
                         </div>
                         <div class="col-4"></div>
                         <div class="col-4">
-                            <label class="form-label cuentaCestaD">Comisión</label>
-                        </div>
-                        <div class="col-4">
-                            <label class="form-label cuentaCestaT" id="comisionCompra">Lps. 0.00</label>
-                        </div>
-                        <div class="col-4"></div>
-                        <div class="col-4">
                             <label class="form-label cuentaCestaD">Total a Pagar</label>
                         </div>
                         <div class="col-4">
@@ -124,12 +137,14 @@
 
                     <div class="d-flex mb-2 mt-2" style="justify-content: center">
                         <button type="button" class="btn btn-danger texto-general boton" data-bs-dismiss="offcanvas"
-                            onclick="mostrarEnvio();">Continuar</button>
+                            onclick="">Continuar</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
+
+    <script src="{{ asset('js/main.js') }}"></script>
 </body>
 
 </html>

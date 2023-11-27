@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,500;0,700;0,900;1,100&display=swap');
+
+.tarjetaProducto {
+    font-family: 'Roboto', sans-serif;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr) 0.5fr;
+    grid-template-rows: repeat(3, 0.5fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 5px;
+    margin: 0;
+}
+
+.fondo-blanco {
+    font-family: 'Roboto', sans-serif;
+    border: solid 2px #3c75d7;
+    border-radius: 10px;
+    padding: 15px 20px;
+    margin: 20px;
+}
+
+.productoO {
+    grid-area: 1 / 1 / 2 / 4;
+    color: #3c75d7;
+    font-size: 1rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+.imagenProductoO {
+    grid-area: 2 / 1 / 3 / 2;
+    border-radius: 5px;
+}
+
+.div3 {
+    grid-area: 2 / 2 / 3 / 3;
+    padding: 15px 0 0 0;
+}
+.subtotal {
+    grid-area: 3 / 1 / 4 / 2;
+    color: #3c75d7;
+    font-size: 1rem;
+    font-weight: bold;
+    text-align: left;
+    border-style: solid none;
+    border-color: #3c75d7;
+    border-width: 1px;
+}
+
+.div5 {
+    grid-area: 3 / 2 / 4 / 3;
+    text-align: left;
+    border-style: solid none;
+    border-color: #3c75d7;
+    border-width: 1px;
+}
+
+
+.icono {
+    grid-area: 2 / 3 / 4 / 4;
+    color: #A0333C;
+    padding: 15px 0 0 25px;
+}
+
+.icono:hover{
+    cursor: pointer;
+}
+
+.cestaDescripcion{
+    font-family: 'Roboto', sans-serif;
+    color: #000;
+    font-weight: 400;
+    text-align: left;
+}
+
+.cuentaCestaD {
+    font-family: 'Roboto', sans-serif;
+    color: #000;
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-align: center;    
+}
+
+.cuentaCestaT {
+    font-family: 'Roboto', sans-serif;
+    color: #000;
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-align: center;
+    padding: 5px;
+    border-radius: 5px;
+    width: 75px;
+}
+
+.offcanvas-header{
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(90deg, #195E95, #3c75d7);
+    color: white;
+}

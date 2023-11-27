@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Categorias</title>
+    <title>Producto Descripcion</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
     <link rel="stylesheet" href="{{ asset('css/subcategorias.css') }}">
     <link rel="stylesheet" href="{{ asset('css/productos.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/carrito.css') }}">
 </head>
 
 <body>
@@ -104,7 +105,26 @@
         <div class="offcanvas-body">
             <div class="fondo-linea">
                 <div id="pedidos">
-
+                    <div class="tarjetaProducto fondo-blanco mb-2" id="div1">
+                        <div class="productoO" id="nombreProductoO"> Producto 1</div>
+                        <div class="imagenProductoO" id="imagen">
+                            <img src="" width="60" height="60" alt="">
+                        </div>
+                        <div class="div3 cestaDescripcion" id="cantPrecioProducto">2 x Lps. 10.00</div>
+                        <div class="subtotal">Subtotal</div>
+                        <div class="div5 cestaDescripcion" id="subtotalPrecioO">Lps. 20.00</div>
+                        <div class="icono" id="ePed1" onclick="eliminarPedido(1);"><i class="fa-regular fa-trash-can"></i></div>
+                    </div>
+                    <div class="tarjetaProducto fondo-blanco mb-2" id="div2">
+                        <div class="productoO" id="nombreProductoO"> Producto 2</div>
+                        <div class="imagenProductoO" id="imagen">
+                            <img src="" width="60" height="60" alt="">
+                        </div>
+                        <div class="div3 cestaDescripcion" id="cantPrecioProducto">2 x Lps. 10.00</div>
+                        <div class="subtotal">Subtotal</div>
+                        <div class="div5 cestaDescripcion" id="subtotalPrecioO">Lps. 20.00</div>
+                        <div class="icono" id="ePed1" onclick="eliminarPedido(2);"><i class="fa-regular fa-trash-can"></i></div>
+                    </div>
                 </div>
                 <form>
                     <div class="row">
@@ -133,13 +153,14 @@
 
                     <div class="d-flex mb-2 mt-2" style="justify-content: center">
                         <button type="button" class="btn btn-danger texto-general boton" data-bs-dismiss="offcanvas"
-                            onclick="mostrarEnvio();">Continuar</button>
+                            onclick="">Continuar</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 
+    <script src="{{ asset('js/main.js') }}"></script>
 </body>
 
 </html>
