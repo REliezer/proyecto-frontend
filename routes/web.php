@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\ProductoController;
+use App\Http\Controllers\SubcategoriaController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,3 +21,7 @@ Route::get('/', function () {
 });
 
 Route::get('categorias', [CategoriaController::class, 'index'])->name('categorias.index');
+
+Route::get('subcategorias', [SubcategoriaController::class, 'index'])->name('subcategorias.index');
+
+Route::get('productos', [ProductoController::class, 'index'])->name('productos.index');

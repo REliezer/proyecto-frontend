@@ -5,13 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Landing Page</title>
+    <title>Categorias</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://kit.fontawesome.com/444ab6c87d.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/categorias.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/subcategorias.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/productos.css') }}">
 </head>
 
 <body>
@@ -49,34 +50,49 @@
             </div>
         </div>
     </nav>
-    <div class="contenedor">
-        <div class="contenido">
-            <div class="card" style="width: 12rem; height: 15rem; background-image: url('https://th-media.apjonlinecdn.com/catalog/product/cache/b3b166914d87ce343d4dc5ec5117b502/2/3/23c1_opp_maokong_27_shellwhite_t_nt_has_captaincrunchwireless_win11_coreset_front_camup_whitebg_intel.png');">
-                <div class="card-body">
-                    <a href="#" class="btn btn-primary">Categoria 1</a>
+
+    <div class="contenedor-principal">
+        <div class="panel-izq">
+            <div class="list-group">
+                <a class="list-group-item list-group-item-action active" aria-current="true">SubCategorias
+                </a>
+                <a href="#" class="list-group-item list-group-item-action">Subcategoria 1</a>
+                <a href="#" class="list-group-item list-group-item-action">Subcategoria 2</a>
+                <a href="#" class="list-group-item list-group-item-action">Subcategoria 3</a>
+                <a href="#" class="list-group-item list-group-item-action">Subcategoria 4</a>
+            </div>
+        </div>
+        <div class="vr" style="margin: 25px 0"></div>
+        <div class="contenedor-producto">
+            <div class="titulo">
+                <h2 class="text-start">Producto 1</h2>
+            </div>
+            <div class="producto-contenido">
+                <div class="producto-imagen">
+                    <img src="https://th-media.apjonlinecdn.com/catalog/product/cache/b3b166914d87ce343d4dc5ec5117b502/2/3/23c1_opp_maokong_27_shellwhite_t_nt_has_captaincrunchwireless_win11_coreset_front_camup_whitebg_intel.png" 
+                    alt="...">
+                    
+                </div>
+                <div class="producto-descripcion">
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium, id!</p>
+                    <br>
+                    <div class="mb-3 row">
+                        <label for="staticPrecio" class="col-sm-2 col-form-label">Precio</label>
+                        <div class="col-sm-10">
+                            <input type="text" readonly class="form-control-plaintext" id="staticPrecio" value="Lps. 00.00">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="staticResena" class="col-sm-2 col-form-label">Reseñas</label>
+                        <div class="col-sm-10">
+                            <input type="text" readonly class="form-control-plaintext" id="staticResena" value="Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus, ab!">
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="card" style="width: 12rem; height: 15rem; background-image: url('https://th-media.apjonlinecdn.com/catalog/product/cache/b3b166914d87ce343d4dc5ec5117b502/2/3/23c1_opp_maokong_27_shellwhite_t_nt_has_captaincrunchwireless_win11_coreset_front_camup_whitebg_intel.png');">
-                <div class="card-body">
-                    <a href="#" class="btn btn-primary">Categoria 2</a>
-                </div>
-            </div>
-            <div class="card" style="width: 12rem; height: 15rem; background-image: url('https://th-media.apjonlinecdn.com/catalog/product/cache/b3b166914d87ce343d4dc5ec5117b502/2/3/23c1_opp_maokong_27_shellwhite_t_nt_has_captaincrunchwireless_win11_coreset_front_camup_whitebg_intel.png');">
-                <div class="card-body">
-                    <a href="#" class="btn btn-primary">Categoria 3</a>
-                </div>
-            </div>
-            <div class="card" style="width: 12rem; height: 15rem; background-image: url('https://th-media.apjonlinecdn.com/catalog/product/cache/b3b166914d87ce343d4dc5ec5117b502/2/3/23c1_opp_maokong_27_shellwhite_t_nt_has_captaincrunchwireless_win11_coreset_front_camup_whitebg_intel.png');">
-                <div class="card-body">
-                    <a href="#" class="btn btn-primary">Categoria 4</a>
-                </div>
-            </div>
-            <div class="card" style="width: 12rem; height: 15rem; background-image: url('');">
-                <div class="card-body">
-                    <a href="#" class="btn btn-primary">Categoria 5</a>
-                </div>
-            </div>
-            
+        </div>
+        <div class="panel-der">
+
         </div>
     </div>
 
@@ -94,7 +110,7 @@
                     <div class="row">
                         <div class="col-4"></div>
                         <div class="col-4">
-                            <label class="form-label cuentaCestaD">Total:</label>
+                            <label class="form-label cuentaCestaD">Subtotal:</label>
                         </div>
                         <div class="col-4">
                             <label class="form-label cuentaCestaT" id="totalCompra">Lps. 0.00</label>
@@ -105,13 +121,6 @@
                         </div>
                         <div class="col-4">
                             <label class="form-label cuentaCestaT" id="impuestoCompra">Lps. 0.00</label>
-                        </div>
-                        <div class="col-4"></div>
-                        <div class="col-4">
-                            <label class="form-label cuentaCestaD">Comisión</label>
-                        </div>
-                        <div class="col-4">
-                            <label class="form-label cuentaCestaT" id="comisionCompra">Lps. 0.00</label>
                         </div>
                         <div class="col-4"></div>
                         <div class="col-4">
@@ -130,6 +139,7 @@
             </div>
         </div>
     </div>
+
 </body>
 
 </html>

@@ -29,6 +29,3 @@
     justify-content: center;
 }
 
-.btn-outline-light:hover{
-    --bs-btn-hover-bg: #3c75d7 !important;
-}
