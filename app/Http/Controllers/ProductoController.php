@@ -10,4 +10,8 @@ class ProductoController extends Controller
     public function index(){
         return view('productos');
     }
+
+    public function finalizar(){
+        return view('finalizarCompra');
+    }
 }

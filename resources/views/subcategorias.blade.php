@@ -10,12 +10,13 @@
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://kit.fontawesome.com/444ab6c87d.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{{ asset('css/estilos-barra-navegacion.css') }}">
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
     <link rel="stylesheet" href="{{ asset('css/subcategorias.css') }}">
     <link rel="stylesheet" href="{{ asset('css/carrito.css') }}">
 </head>
 
-<body>
+<body class="barra-navegacion">
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">SoftBytes</a>
@@ -26,11 +27,16 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <div class="input-group" style="margin: 0 15px;">
-                    <button class="btn btn-outline-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Categorias</button>
+                    <button class="btn btn-outline-light dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">Categorias</button>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Categoria 1</a></li>
-                        <li><a class="dropdown-item" href="#">Categoria 2</a></li>
-                        <li><a class="dropdown-item" href="#">Categoria 3</a></li>
+                        @foreach ($categorias as $item)
+                            <li>
+                                <a class="dropdown-item" href="{{route('subcategorias.index', $item->idCategoria)}}">
+                                    {{ $item->descripcion }}
+                                </a>
+                            </li>
+                        @endforeach
                     </ul>
                     <input type="text" class="form-control" placeholder="Buscar" aria-label="Buscar"
                         aria-describedby="button-addon2">
@@ -49,16 +55,17 @@
                 </div>
             </div>
         </div>
-    </nav>
+    </nav>    
     <div class="contenedor-principal">
         <div class="panel-izq">
             <div class="list-group">
                 <a class="list-group-item list-group-item-action active" aria-current="true">SubCategorias
                 </a>
-                <a href="#" class="list-group-item list-group-item-action">Subcategoria 1</a>
-                <a href="#" class="list-group-item list-group-item-action">Subcategoria 2</a>
-                <a href="#" class="list-group-item list-group-item-action">Subcategoria 3</a>
-                <a href="#" class="list-group-item list-group-item-action">Subcategoria 4</a>
+                @foreach ($subcategorias as $item)
+                    <a href="#" class="list-group-item list-group-item-action">
+                        {{ $item->descripcion }}
+                    </a>
+                @endforeach
             </div>
         </div>
         <div class="vr" style="margin: 25px 0"></div>
@@ -67,32 +74,37 @@
                 <h2 class="text-start">Categoria 1</h2>
             </div>
             <div class="contenido">
+                @foreach ($productos as $item)
                 <div class="card shadow rounded">
-                    <img src="https://th-media.apjonlinecdn.com/catalog/product/cache/b3b166914d87ce343d4dc5ec5117b502/2/3/23c1_opp_maokong_27_shellwhite_t_nt_has_captaincrunchwireless_win11_coreset_front_camup_whitebg_intel.png" class="card-img-top" alt="...">
+                    <img src="{{ $item->imagen}}" class="card-img-top p-1" alt="...">
                     <div class="card-body">
-                        <h5 class="card-title">Producto 1</h5>
-                        <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis, nisi!</p>
-                        <p class="card-text">Lps. 00.00</p>
+                        <h5 class="card-title">{{ $item->nombre}}</h5>
+                        <span class="card-text d-inline-block text-truncate" style="max-width: 150px; max-height: 5em;">
+                            {{ $item->descripcion}}
+                        </span>
+                        <p class="card-text">Lps. {{ $item->precioUnidad}}</p>
                         <div class="row d-flex mb-3 row" style="justify-content: space-evenly">
                             <div class="col-4">
-                                <button type="button" class="btn btn-outline-primary" onclick="menos(1);">
+                                <button type="button" class="btn btn-outline-primary" onclick="menos({{ $item->idProducto}});">
                                     <i class="fa-solid fa-circle-minus"></i>
                                 </button>
                             </div>
                             <div class="col-4 m-0">
-                                <input type="number" class="form-control" value="1" id="cantidadProducto1">
+                                <input type="number" class="form-control" value="1" id="cantidadProducto{{ $item->idProducto}}">
                             </div>
                             <div class="col-4">
-                                <button type="button" class="btn btn-outline-primary" onclick="mas(1);">
+                                <button type="button" class="btn btn-outline-primary" onclick="mas({{ $item->idProducto}});">
                                     <i class="fa-solid fa-circle-plus"></i>
                                 </button>
                             </div>
                         </div>
                         <div class="d-flex mb-2 mt-2" style="justify-content: center">
-                            <a href="#" class="btn btn-primary" onclick="agregarCompra(1);">Añadir al carrito</a>
+                            <a href="#" class="btn btn-primary" onclick="agregarCompra({{ $item->idProducto}});">Añadir al carrito</a>
                         </div>
                     </div>
                 </div>
+                @endforeach
+                
                 <div class="card shadow rounded">
                     <img src="https://th-media.apjonlinecdn.com/catalog/product/cache/b3b166914d87ce343d4dc5ec5117b502/2/3/23c1_opp_maokong_27_shellwhite_t_nt_has_captaincrunchwireless_win11_coreset_front_camup_whitebg_intel.png" class="card-img-top" alt="...">
                     <div class="card-body">
@@ -200,8 +212,6 @@
             </div>
         </div>
     </div>
-
-
     <div class="offcanvas offcanvas-end" tabindex="-1" id="cestaCompra" aria-labelledby="cestaCompraLabel">
         <div class="offcanvas-header">
             <h5 class="offcanvas-title" id="cestaCompraLabel">Carrito de Compras</h5>

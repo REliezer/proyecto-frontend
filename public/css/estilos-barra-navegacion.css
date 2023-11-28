@@ -1,0 +1,26 @@
+/* Estilos para motores Webkit y blink (Chrome, Safari, Opera... )*/
+
+.barra-navegacion::-webkit-scrollbar {
+    -webkit-appearance: none;
+}
+
+.barra-navegacion::-webkit-scrollbar:vertical {
+    width:5px;
+}
+
+.barra-navegacion::-webkit-scrollbar-button:increment,.barra-navegacion::-webkit-scrollbar-button {
+    display: none;
+} 
+
+.barra-navegacion::-webkit-scrollbar:horizontal {
+    height: 5px;
+}
+
+.barra-navegacion::-webkit-scrollbar-thumb {
+    background-color: #195E95;
+    border-radius: 20px;
+}
+
+.barra-navegacion::-webkit-scrollbar-track {
+    border-radius: 10px;  
+}

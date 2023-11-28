@@ -22,6 +22,8 @@ Route::get('/', function () {
 
 Route::get('categorias', [CategoriaController::class, 'index'])->name('categorias.index');
 
-Route::get('subcategorias', [SubcategoriaController::class, 'index'])->name('subcategorias.index');
+Route::get('subcategorias/{idCategoria}', [SubcategoriaController::class, 'index'])->name('subcategorias.index');
 
 Route::get('productos', [ProductoController::class, 'index'])->name('productos.index');
+
+Route::get('finalizar', [ProductoController::class, 'finalizar'])->name('productos.finalizar');
