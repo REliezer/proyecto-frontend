@@ -8,13 +8,29 @@
     gap: 10px;
 }
 
-.producto-imagen{
-    background-color: aqua;
+.producto-compra{
+    font-family: 'Roboto', sans-serif;
+    font-size: 1rem !important;
+    width: 40%;
 
 }
 
-.producto-descripcion{
-    background-color: aquamarine;
+.venta{
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    justify-content: center;
     padding: 10px;
+    width: 60%;
+    border: solid 2px #3c75d7;
+    border-radius: 5px;
+    height: fit-content;
+    margin-top: 20px;
 }
 
+.titulo{
+    font-family: 'Roboto', sans-serif;
+    margin: 20px 10px 0 10px;
+    padding: 0 20px 0 20px;
+    color: #3c75d7;
+    font-weight: bold;
+}

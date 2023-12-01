@@ -19,7 +19,7 @@
 <body class="barra-navegacion">
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">SoftBytes</a>
+            <a class="navbar-brand" href="{{ route('categorias.index') }}">SoftBytes</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation">
@@ -29,14 +29,8 @@
                 <div class="input-group" style="margin: 0 15px;">
                     <button class="btn btn-outline-light dropdown-toggle" type="button" data-bs-toggle="dropdown"
                         aria-expanded="false">Categorias</button>
-                    <ul class="dropdown-menu">
-                        @foreach ($categorias as $item)
-                            <li>
-                                <a class="dropdown-item" href="{{route('subcategorias.index', $item->idCategoria)}}">
-                                    {{ $item->descripcion }}
-                                </a>
-                            </li>
-                        @endforeach
+                    <ul class="dropdown-menu" id="categoriasMenu">
+
                     </ul>
                     <input type="text" class="form-control" placeholder="Buscar" aria-label="Buscar"
                         aria-describedby="button-addon2">
@@ -55,28 +49,30 @@
                 </div>
             </div>
         </div>
-    </nav>    
+    </nav>
     <div class="contenedor-principal">
         <div class="panel-izq">
             <div class="list-group">
                 <a class="list-group-item list-group-item-action active" aria-current="true">SubCategorias
                 </a>
                 @foreach ($subcategorias as $item)
-                    <a href="#" class="list-group-item list-group-item-action">
-                        {{ $item->descripcion }}
-                    </a>
+                <a href="{{ route('subcategorias.productos', ['idCategoria' => $item->idCategoria, 'idSubcategoria' => $item->idSubcategoria]) }}"
+                    class="list-group-item list-group-item-action">
+                    {{ $item->descripcion }}
+                </a>
                 @endforeach
             </div>
         </div>
         <div class="vr" style="margin: 25px 0"></div>
         <div class="contenedor-producto">
             <div class="titulo">
-                <h2 class="text-start">Categoria 1</h2>
+                <h2 class="text-start">{{ $categoriasVisitada->descripcion }}</h2>
             </div>
             <div class="contenido">
-                @foreach ($productos as $item)
+                @forelse ($productos as $item)
                 <div class="card shadow rounded">
-                    <img src="{{ $item->imagen}}" class="card-img-top p-1" alt="...">
+                    <img src="{{ $item->imagen}}" alt="imagen" class="card-img-top p-1" 
+                        data-bs-toggle="modal" data-bs-target="#modalProducto" onclick="mostrarModal({{ $item->idProducto }})">
                     <div class="card-body">
                         <h5 class="card-title">{{ $item->nombre}}</h5>
                         <span class="card-text d-inline-block text-truncate" style="max-width: 150px; max-height: 5em;">
@@ -85,161 +81,53 @@
                         <p class="card-text">Lps. {{ $item->precioUnidad}}</p>
                         <div class="row d-flex mb-3 row" style="justify-content: space-evenly">
                             <div class="col-4">
-                                <button type="button" class="btn btn-outline-primary" onclick="menos({{ $item->idProducto}});">
+                                <button type="button" class="btn btn-outline-primary"
+                                    onclick="menos({{ $item->idProducto}});">
                                     <i class="fa-solid fa-circle-minus"></i>
                                 </button>
+
                             </div>
                             <div class="col-4 m-0">
-                                <input type="number" class="form-control" value="1" id="cantidadProducto{{ $item->idProducto}}">
+                                <input type="number" class="form-control" value="1"
+                                    id="cantidadProducto{{ $item->idProducto}}">
                             </div>
                             <div class="col-4">
-                                <button type="button" class="btn btn-outline-primary" onclick="mas({{ $item->idProducto}});">
+                                <button type="button" class="btn btn-outline-primary"
+                                    onclick="mas({{ $item->idProducto}});">
                                     <i class="fa-solid fa-circle-plus"></i>
                                 </button>
                             </div>
                         </div>
                         <div class="d-flex mb-2 mt-2" style="justify-content: center">
-                            <a href="#" class="btn btn-primary" onclick="agregarCompra({{ $item->idProducto}});">Añadir al carrito</a>
+                            <a href="#" class="btn btn-primary" onclick="agregarCompra({{ $item->idProducto}});">
+                                Añadir al carrito
+                            </a>
                         </div>
                     </div>
                 </div>
-                @endforeach
                 
-                <div class="card shadow rounded">
-                    <img src="https://th-media.apjonlinecdn.com/catalog/product/cache/b3b166914d87ce343d4dc5ec5117b502/2/3/23c1_opp_maokong_27_shellwhite_t_nt_has_captaincrunchwireless_win11_coreset_front_camup_whitebg_intel.png" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Producto 2</h5>
-                        <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima, doloribus.</p>
-                        <p class="card-text">Lps. 00.00</p>
-                        <div class="row d-flex mb-3 row" style="justify-content: space-evenly">
-                            <div class="col-4">
-                                <button type="button" class="btn btn-outline-primary" onclick="menos(2);">
-                                    <i class="fa-solid fa-circle-minus"></i>
-                                </button>
-                            </div>
-                            <div class="col-4 m-0">
-                                <input type="number" class="form-control" value="1" id="cantidadProducto2">
-                            </div>
-                            <div class="col-4">
-                                <button type="button" class="btn btn-outline-primary" onclick="mas(2);">
-                                    <i class="fa-solid fa-circle-plus"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="d-flex mb-2 mt-2" style="justify-content: center">
-                            <a href="#" class="btn btn-primary ">Añadir al carrito</a>
-                        </div>
-                    </div>
+                @empty
+                <div style="text-align: center;">
+                    <img src="{{ asset('img/5203299.jpg') }}" alt="" style="width: 50%;">
                 </div>
-                <div class="card shadow rounded">
-                    <img src="https://th-media.apjonlinecdn.com/catalog/product/cache/b3b166914d87ce343d4dc5ec5117b502/2/3/23c1_opp_maokong_27_shellwhite_t_nt_has_captaincrunchwireless_win11_coreset_front_camup_whitebg_intel.png" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Producto 3</h5>
-                        <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore, porro?</p>
-                        <p class="card-text">Lps. 00.00</p>
-                        <div class="row d-flex mb-3 row" style="justify-content: space-evenly">
-                            <div class="col-4">
-                                <button type="button" class="btn btn-outline-primary" onclick="menos();">
-                                    <i class="fa-solid fa-circle-minus"></i>
-                                </button>
-                            </div>
-                            <div class="col-4 m-0">
-                                <input type="number" class="form-control" value="1" id="cantidadProducto">
-                            </div>
-                            <div class="col-4">
-                                <button type="button" class="btn btn-outline-primary" onclick="mas();">
-                                    <i class="fa-solid fa-circle-plus"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="d-flex mb-2 mt-2" style="justify-content: center">
-                            <a href="#" class="btn btn-primary ">Añadir al carrito</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="card shadow rounded">
-                    <img src="https://th-media.apjonlinecdn.com/catalog/product/cache/b3b166914d87ce343d4dc5ec5117b502/2/3/23c1_opp_maokong_27_shellwhite_t_nt_has_captaincrunchwireless_win11_coreset_front_camup_whitebg_intel.png" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Producto 4</h5>
-                        <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos, tempore.</p>
-                        <p class="card-text">Lps. 00.00</p>
-                        <div class="row d-flex mb-3 row" style="justify-content: space-evenly">
-                            <div class="col-4">
-                                <button type="button" class="btn btn-outline-primary" onclick="menos();">
-                                    <i class="fa-solid fa-circle-minus"></i>
-                                </button>
-                            </div>
-                            <div class="col-4 m-0">
-                                <input type="number" class="form-control" value="1" id="cantidadProducto">
-                            </div>
-                            <div class="col-4">
-                                <button type="button" class="btn btn-outline-primary" onclick="mas();">
-                                    <i class="fa-solid fa-circle-plus"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="d-flex mb-2 mt-2" style="justify-content: center">
-                            <a href="#" class="btn btn-primary ">Añadir al carrito</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="card shadow rounded">
-                    <img src="https://th-media.apjonlinecdn.com/catalog/product/cache/b3b166914d87ce343d4dc5ec5117b502/2/3/23c1_opp_maokong_27_shellwhite_t_nt_has_captaincrunchwireless_win11_coreset_front_camup_whitebg_intel.png" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Producto 5</h5>
-                        <p class="card-text">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Facere, pariatur!</p>
-                        <p class="card-text">Lps. 00.00</p>
-                        <div class="row d-flex mb-3 row" style="justify-content: space-evenly">
-                            <div class="col-4">
-                                <button type="button" class="btn btn-outline-primary" onclick="menos();">
-                                    <i class="fa-solid fa-circle-minus"></i>
-                                </button>
-                            </div>
-                            <div class="col-4 m-0">
-                                <input type="number" class="form-control" value="1" id="cantidadProducto">
-                            </div>
-                            <div class="col-4">
-                                <button type="button" class="btn btn-outline-primary" onclick="mas();">
-                                    <i class="fa-solid fa-circle-plus"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="d-flex mb-2 mt-2" style="justify-content: center">
-                            <a href="#" class="btn btn-primary ">Añadir al carrito</a>
-                        </div>
-                    </div>
+                @endforelse
+                <div class="d-flex justify-content-center">
+                    {{ $productos->links() }}
                 </div>
             </div>
+            
         </div>
     </div>
+
     <div class="offcanvas offcanvas-end" tabindex="-1" id="cestaCompra" aria-labelledby="cestaCompraLabel">
         <div class="offcanvas-header">
             <h5 class="offcanvas-title" id="cestaCompraLabel">Carrito de Compras</h5>
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
-        <div class="offcanvas-body">
+        <div class="offcanvas-body barra-navegacion">
             <div class="fondo-linea">
                 <div id="pedidos">
-                    <div class="tarjetaProducto fondo-blanco mb-2" id="div1">
-                        <div class="productoO" id="nombreProductoO"> Producto 1</div>
-                        <div class="imagenProductoO" id="imagen">
-                            <img src="" width="60" height="60" alt="">
-                        </div>
-                        <div class="div3 cestaDescripcion" id="cantPrecioProducto">2 x Lps. 10.00</div>
-                        <div class="subtotal">Subtotal</div>
-                        <div class="div5 cestaDescripcion" id="subtotalPrecioO">Lps. 20.00</div>
-                        <div class="icono" id="ePed1" onclick="eliminarPedido(1);"><i class="fa-regular fa-trash-can"></i></div>
-                    </div>
-                    <div class="tarjetaProducto fondo-blanco mb-2" id="div2">
-                        <div class="productoO" id="nombreProductoO"> Producto 2</div>
-                        <div class="imagenProductoO" id="imagen">
-                            <img src="" width="60" height="60" alt="">
-                        </div>
-                        <div class="div3 cestaDescripcion" id="cantPrecioProducto">2 x Lps. 10.00</div>
-                        <div class="subtotal">Subtotal</div>
-                        <div class="div5 cestaDescripcion" id="subtotalPrecioO">Lps. 20.00</div>
-                        <div class="icono" id="ePed1" onclick="eliminarPedido(2);"><i class="fa-regular fa-trash-can"></i></div>
-                    </div>
+
                 </div>
                 <form>
                     <div class="row">
@@ -267,10 +155,29 @@
                     </div>
 
                     <div class="d-flex mb-2 mt-2" style="justify-content: center">
-                        <button type="button" class="btn btn-danger texto-general boton" data-bs-dismiss="offcanvas"
-                            onclick="">Continuar</button>
+                        <a class="btn btn-danger texto-general boton" href="{{ route('productos.finalizar') }}"
+                            onclick="calcularCompra()">Continuar
+                        </a>
                     </div>
                 </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="modalProducto" tabindex="-1" aria-labelledby="modalProductoLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="modalProductoLabel">Producto Nombre</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-3" id="productoInformacion">
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
             </div>
         </div>
     </div>

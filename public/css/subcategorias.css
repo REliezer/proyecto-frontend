@@ -60,3 +60,9 @@
     text-align: justify;
     font-weight: 300;
 }
+
+.modal-header{
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(90deg, #195E95, #3c75d7);
+    color: white;
+}

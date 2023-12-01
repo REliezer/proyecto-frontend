@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,7 +20,7 @@
 <body class="barra-navegacion">
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">SoftBytes</a>
+            <a class="navbar-brand" href="{{ route('categorias.index') }}">SoftBytes</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation">
@@ -29,11 +28,10 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <div class="input-group" style="margin: 0 15px;">
-                    <button class="btn btn-outline-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Categorias</button>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Categoria 1</a></li>
-                        <li><a class="dropdown-item" href="#">Categoria 2</a></li>
-                        <li><a class="dropdown-item" href="#">Categoria 3</a></li>
+                    <button class="btn btn-outline-light dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">Categorias</button>
+                    <ul class="dropdown-menu" id="categoriasMenu">
+                        
                     </ul>
                     <input type="text" class="form-control" placeholder="Buscar" aria-label="Buscar"
                         aria-describedby="button-addon2">
@@ -60,76 +58,102 @@
                     <h2 class="text-start">Información de envio y de pago</h2>
                 </div>
                 <div class="producto-contenido">
-                    <div class="producto-imagen">
-                        <div class="fondo-linea">
-                            <div id="pedidos">
-                                <div class="tarjetaProducto fondo-blanco mb-2" id="div1">
-                                    <div class="productoO" id="nombreProductoO"> Producto 1</div>
-                                    <div class="imagenProductoO" id="imagen">
-                                        <img src="" width="60" height="60" alt="">
-                                    </div>
-                                    <div class="div3 cestaDescripcion" id="cantPrecioProducto">2 x Lps. 10.00</div>
-                                    <div class="subtotal">Subtotal</div>
-                                    <div class="div5 cestaDescripcion" id="subtotalPrecioO">Lps. 20.00</div>
-                                    <div class="icono" id="ePed1" onclick="eliminarPedido(1);"><i class="fa-regular fa-trash-can"></i></div>
-                                </div>
-                                <div class="tarjetaProducto fondo-blanco mb-2" id="div2">
-                                    <div class="productoO" id="nombreProductoO"> Producto 2</div>
-                                    <div class="imagenProductoO" id="imagen">
-                                        <img src="" width="60" height="60" alt="">
-                                    </div>
-                                    <div class="div3 cestaDescripcion" id="cantPrecioProducto">2 x Lps. 10.00</div>
-                                    <div class="subtotal">Subtotal</div>
-                                    <div class="div5 cestaDescripcion" id="subtotalPrecioO">Lps. 20.00</div>
-                                    <div class="icono" id="ePed1" onclick="eliminarPedido(2);"><i class="fa-regular fa-trash-can"></i></div>
-                                </div>
-                            </div>
-                            <form>
-                                <div class="row">
-                                    <div class="col-4"></div>
-                                    <div class="col-4">
-                                        <label class="form-label cuentaCestaD">Subtotal:</label>
-                                    </div>
-                                    <div class="col-4">
-                                        <label class="form-label cuentaCestaT" id="totalCompra">Lps. 0.00</label>
-                                    </div>
-                                    <div class="col-4"></div>
-                                    <div class="col-4">
-                                        <label class="form-label cuentaCestaD">Impuesto:</label>
-                                    </div>
-                                    <div class="col-4">
-                                        <label class="form-label cuentaCestaT" id="impuestoCompra">Lps. 0.00</label>
-                                    </div>
-                                    <div class="col-4"></div>
-                                    <div class="col-4">
-                                        <label class="form-label cuentaCestaD">Total a Pagar</label>
-                                    </div>
-                                    <div class="col-4">
-                                        <label class="form-label cuentaCestaT" id="totalPagar">Lps. 0.00</label>
-                                    </div>
-                                </div>
-                            </form>
+                    <div class="producto-compra">
+                        <div id="productosComprados">
+
                         </div>
                     </div>
-                    <div class="producto-descripcion">
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium, id!</p>
-                        <br>
-                        <div class="mb-3 row">
-                            <label for="staticPrecio" class="col-sm-2 col-form-label">Precio</label>
-                            <div class="col-sm-10">
-                                <input type="text" readonly class="form-control-plaintext" id="staticPrecio" value="Lps. 00.00">
+                    <div class="venta">
+                        <form method="POST" action=" ">
+                            @csrf
+                            @method('POST')
+                            <div class="mb-3 row">
+                                <label for="staticPrecio" class="col-sm-6 col-form-label"
+                                    style="text-align: left;">Fecha</label>
+                                <div class="col-sm-4">
+                                    <input type="text" readonly class="form-control-plaintext"
+                                    id="staticFecha" style="text-align: right;" value="">
+                                </div>
                             </div>
-                        </div>
-                        <div class="mb-3 row">
-                            <label for="staticResena" class="col-sm-2 col-form-label">Reseñas</label>
-                            <div class="col-sm-10">
-                                <input type="text" readonly class="form-control-plaintext" id="staticResena" value="Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus, ab!">
+                            <div class="mb-3 row">
+                                <label for="staticPrecio" class="col-sm-8 col-form-label"
+                                    style="text-align: left;">Total de Articulos Comprados</label>
+                                <div class="col-sm-2">
+                                    <input type="text" readonly class="form-control-plaintext"
+                                        id="noArticulos" style="text-align: right;" value="">
+                                </div>
                             </div>
-                        </div>
+                            <div class="mb-3 row">
+                                <label for="staticPrecio" class="col-sm-4 col-form-label"
+                                    style="text-align: left;">Subtotal</label>
+                                <div class="col-sm-6">
+                                    <input type="text" readonly class="form-control-plaintext"
+                                        id="totalComprado" style="text-align: right;" value=" ">
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label for="staticPrecio" class="col-sm-4 col-form-label"
+                                    style="text-align: left;">ISV</label>
+                                <div class="col-sm-6">
+                                    <input type="text" readonly class="form-control-plaintext"
+                                        id="totalImpuesto" style="text-align: right;" value="">
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label for="staticPrecio" class="col-sm-4 col-form-label"
+                                    style="text-align: left;">Total</label>
+                                <div class="col-sm-6">
+                                    <input type="text" readonly class="form-control-plaintext"
+                                        id="totalAPagar" style="text-align: right;" value="">
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label for="staticPrecio" class="col-sm-4 col-form-label"
+                                    style="text-align: left;">Metodo de Pago</label>
+                                <div class="col-sm-6">
+                                    <select class="form-select" aria-label="Selecciona un metodo de pago" id="metodoPago" onchange="metodoPago()">
+                                        <option selected>Selecciona un metodo de pago</option>
+                                        <option value="1">Efectivo</option>
+                                        <option value="2">Tarjeta Debito/Credito</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="mb-3" id="divMetodoPago" style="display: none;">
+                                <div class="mb-3 row">
+                                    <label for="numeroTarjeta" class="col-sm-4 col-form-label"
+                                        style="text-align: left;">Numero de Tarjeta</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control" id="numeroTarjeta" value="">
+                                    </div>
+                                </div>
+                                <div class="mb-3 row">
+                                    <label for="fechaVencimiento" class="col-sm-4 col-form-label"
+                                        style="text-align: left;">Fecha de Vencimiento</label>
+                                    <div class="col-sm-6">
+                                        <input type="date" class="form-control" id="fechaVencimiento" value="">
+                                    </div>
+                                </div>
+                                <div class="mb-3 row">
+                                    <label for="cvc" class="col-sm-4 col-form-label"
+                                        style="text-align: left;">CVC/CVV</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" maxlength="3" class="form-control" id="cvc" value="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row text-center mb-3">
+                                <div class="col-sm-6">
+                                    <button type="submit" class="btn btn-success">Enviar</button>
+                                </div>
+                                <div class="col-sm-6">
+                                    <a class="btn btn-primary" href="{{route('categorias.index')}}">Seguir Comprando</a>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
-            
+
         </div>
     </div>
 
@@ -138,29 +162,10 @@
             <h5 class="offcanvas-title" id="cestaCompraLabel">Carrito de Compras</h5>
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
-        <div class="offcanvas-body">
+        <div class="offcanvas-body barra-navegacion">
             <div class="fondo-linea">
                 <div id="pedidos">
-                    <div class="tarjetaProducto fondo-blanco mb-2" id="div1">
-                        <div class="productoO" id="nombreProductoO"> Producto 1</div>
-                        <div class="imagenProductoO" id="imagen">
-                            <img src="" width="60" height="60" alt="">
-                        </div>
-                        <div class="div3 cestaDescripcion" id="cantPrecioProducto">2 x Lps. 10.00</div>
-                        <div class="subtotal">Subtotal</div>
-                        <div class="div5 cestaDescripcion" id="subtotalPrecioO">Lps. 20.00</div>
-                        <div class="icono" id="ePed1" onclick="eliminarPedido(1);"><i class="fa-regular fa-trash-can"></i></div>
-                    </div>
-                    <div class="tarjetaProducto fondo-blanco mb-2" id="div2">
-                        <div class="productoO" id="nombreProductoO"> Producto 2</div>
-                        <div class="imagenProductoO" id="imagen">
-                            <img src="" width="60" height="60" alt="">
-                        </div>
-                        <div class="div3 cestaDescripcion" id="cantPrecioProducto">2 x Lps. 10.00</div>
-                        <div class="subtotal">Subtotal</div>
-                        <div class="div5 cestaDescripcion" id="subtotalPrecioO">Lps. 20.00</div>
-                        <div class="icono" id="ePed1" onclick="eliminarPedido(2);"><i class="fa-regular fa-trash-can"></i></div>
-                    </div>
+
                 </div>
                 <form>
                     <div class="row">
@@ -188,8 +193,9 @@
                     </div>
 
                     <div class="d-flex mb-2 mt-2" style="justify-content: center">
-                        <a class="btn btn-danger texto-general boton" data-bs-dismiss="offcanvas"
-                            href="{{ route('productos.finalizar') }}">Continuar</a>
+                        <a class="btn btn-danger texto-general boton" href="{{ route('productos.finalizar') }}"
+                            onclick="calcularCompra()">Continuar
+                        </a>
                     </div>
                 </form>
             </div>

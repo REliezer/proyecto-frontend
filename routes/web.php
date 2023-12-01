@@ -22,8 +22,18 @@ Route::get('/', function () {
 
 Route::get('categorias', [CategoriaController::class, 'index'])->name('categorias.index');
 
+Route::get('obtenerCategorias', [CategoriaController::class, 'categorias'])->name('categorias.categorias');
+
 Route::get('subcategorias/{idCategoria}', [SubcategoriaController::class, 'index'])->name('subcategorias.index');
+
+Route::get('subcategorias/productos/{idCategoria}/{idSubcategoria}',
+            [SubcategoriaController::class, 'productosSubcategoria'])->name('subcategorias.productos');
+
 
 Route::get('productos', [ProductoController::class, 'index'])->name('productos.index');
 
 Route::get('finalizar', [ProductoController::class, 'finalizar'])->name('productos.finalizar');
+
+Route::get('productos/buscar/{idProducto}', [ProductoController::class, 'buscarProducto'])->name('productos.buscarProducto');
+
+Route::get('productos/all', [ProductoController::class, 'productos'])->name('productos.all');
