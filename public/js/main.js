@@ -8,34 +8,35 @@ const obtenerCategorias = async () => {
     const buscarCategorias = await fetch(`http://localhost/proyecto-frontend/public/obtenerCategorias`,
         {
             method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            },
+            
         });
     categoriasEncontradas = await buscarCategorias.json();
+    console.log(categoriasEncontradas);
 }
 
 const obtenerProductos = async () => {
     //buscar productos en la BD
-    const buscarCategorias = await fetch(`http://localhost/proyecto-frontend/public/productos/all`,
+    const obtenerTodosProductos = await fetch(`http://localhost/proyecto-frontend/public/productos/all`,
         {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
             },
         });
-    productos = await buscarCategorias.json();
+    productos = await obtenerTodosProductos.json();
+    console.log('productos', productos);
 }
 
 const cargarCategorias = async () => {
     //menu barra navegacion categorias
+    console.log(categoriasEncontradas);
     if ((document.getElementById('categoriasMenu') !== null) && (categoriasEncontradas)) {
         document.getElementById('categoriasMenu').innerHTML = '';
         categoriasEncontradas.forEach(categoria => {
             document.getElementById('categoriasMenu').innerHTML +=
                 `<li>
-                    <a class="dropdown-item" href="http://localhost/proyecto-frontend/public/subcategorias/${categoria.idCategoria}">
-                        ${categoria.descripcion}
+                    <a class="dropdown-item" href="http://localhost/proyecto-frontend/public/subcategorias/${categoria.description}">
+                        ${categoria.description}
                     </a>
                 </li>`;
         });
@@ -45,13 +46,13 @@ const cargarCategorias = async () => {
         document.getElementById('contenidoCategoria').innerHTML = '';
         categoriasEncontradas.forEach(categoria => {
             document.getElementById('contenidoCategoria').innerHTML +=
-                `<div class="card" style="width: 12rem; height: 15rem; background-image: url('${categoria.imagen}');">
-                <div class="card-body">
-                    <a href="http://localhost/proyecto-frontend/public/subcategorias/${categoria.idCategoria}" class="btn btn-primary">
-                        ${categoria.descripcion}
-                    </a>
-                </div>
-            </div>`;
+                `<div class="card" style="width: 12rem; height: 15rem; background-image: url('${categoria.picture}');">
+                    <div class="card-body">
+                        <a href="http://localhost/proyecto-frontend/public/subcategorias/${categoria.description}" class="btn btn-primary">
+                            ${categoria.description}
+                        </a>
+                    </div>
+                </div>`;
         });
     }
 }
@@ -107,36 +108,33 @@ const agregarCompra = async (idProducto) => {
             },
         });
     productoEncontrado = await productoCategoria.json();
+    console.log('productoEncontrado', productoEncontrado);
 
     if (productoEncontrado) {
         console.log('productoEncontrado ', productoEncontrado);
 
-        subtotal = (cantidad * productoEncontrado.precioUnidad).toFixed(2);
+        subtotal = (cantidad * productoEncontrado.unityPrice).toFixed(2);
         document.getElementById('pedidos').innerHTML +=
             `<div class="tarjetaProducto fondo-blanco mb-2" id="div${idProducto}">
-                <div class="productoO" id="nombreProductoO">${productoEncontrado.nombre}</div>
+                <div class="productoO" id="nombreProductoO">${productoEncontrado.name}</div>
                 <div class="imagenProductoO" id="imagen">
-                    <img src="${productoEncontrado.imagen}" width="60" height="60" alt="${productoEncontrado.nombre}">
+                    <img src="${productoEncontrado.picture}" width="60" height="60" alt="${productoEncontrado.name}">
                 </div>
-                <div class="div3 cestaDescripcion" id="cantPrecioProducto">${cantidad} x ${(parseInt(productoEncontrado.precioUnidad)).toLocaleString('es', { style: 'currency', currency: 'Lps' })}</div>                
+                <div class="div3 cestaDescripcion" id="cantPrecioProducto">${cantidad} x ${(parseInt(productoEncontrado.unityPrice)).toLocaleString('es', { style: 'currency', currency: 'Lps' })}</div>                
                 <div class="subtotal">Subtotal</div>
                 <div class="div5 cestaDescripcion" id="subtotalPrecioO">${subtotal.toLocaleString('es', { style: 'currency', currency: 'Lps' })}</div>
                 <div class="icono" id="ePed${idProducto}" onclick="eliminarPedido(${idProducto});"><i class="fa-regular fa-trash-can"></i></div>
             </div>`;
-
-        //cantidadTotalCompra = cantidadTotalCompra + cantidad;
-        //compraRealizada = parseFloat(compraRealizada) + parseFloat(subtotal);;
-        //console.log('compraRealizada ', compraRealizada);
-
+            
         contador++;
         localStorage.setItem('contador', contador);
 
         // Actualizar valores en localStorage
         productosComprados.push({
             idProducto: idProducto,
-            nombre: productoEncontrado.nombre,
-            imagen: productoEncontrado.imagen,
-            precioUnidad: productoEncontrado.precioUnidad,
+            nombre: productoEncontrado.name,
+            imagen: productoEncontrado.picture,
+            precioUnidad: productoEncontrado.unityPrice,
             cantidad: cantidad
         });
 
@@ -207,6 +205,9 @@ function eliminarPedido(idProducto) {
     console.log(productosComprados);
     console.log(consumo);
 
+    calcularCompra();
+    //carrito();
+
 }
 
 const fecha = () => {
@@ -225,6 +226,9 @@ const fecha = () => {
 const carrito = () => {
     const objetosRecuperados = JSON.parse(localStorage.getItem('objetos'));
     const consumoActual = JSON.parse(localStorage.getItem('consumo'));
+    
+    document.getElementById('pedidos').innerHTML = '';
+
     if (objetosRecuperados) {
         objetosRecuperados.forEach(compras => {
             document.getElementById('pedidos').innerHTML +=
@@ -287,33 +291,34 @@ const mostrarModal = (idProducto) => {
     tituloModal.innerHTML = '';
 
     productos.forEach(producto => {
-        if (producto.idProducto === idProducto) {
-            tituloModal.innerHTML = producto.nombre;
+        if (producto.idProduct === idProducto) {
+            console.log('producto', producto)
+            tituloModal.innerHTML = producto.name;
 
             contenidoModal.innerHTML = 
         `<div class="mb-3 row">
             <label for="staticPrecio" class="col-sm-4 col-form-label"
                 style="text-align: left;">Codigo de Serie</label>
             <div class="col-sm-6">
-                <input type="text" readonly class="form-control-plaintext" id="staticCodigo" value="${producto.codigoSerie}">
+                <input type="text" readonly class="form-control-plaintext" id="staticCodigo" value="${producto.serialCode}">
             </div>
         </div>
         <div class="mb-3">
             <label for="staticPrecio" class="col-sm-4 col-form-label"
                 style="text-align: left;">Descripcion</label>
-                <textarea readonly class="form-control-plaintext" id="staticDescripcion" rows="4">${producto.descripcion}</textarea>
+                <textarea readonly class="form-control-plaintext" id="staticDescripcion" rows="6">${producto.description}</textarea>
         </div>
         <div class="mb-3 row">
             <label for="staticPrecio" class="col-sm-4 col-form-label"
                 style="text-align: left;">Fecha de Publicacion</label>
             <div class="col-sm-6">
-                <input type="text" readonly class="form-control-plaintext" id="staticFecha" value="${producto.fechaPublicacion}">
+                <input type="text" readonly class="form-control-plaintext" id="staticFecha" value="${producto.publicationDate}">
             </div>
         </div>
         <div class="mb-3">
             <label for="staticPrecio" class="col-sm-4 col-form-label"
                 style="text-align: left;">Reseña</label>
-                <textarea readonly class="form-control-plaintext" id="staticResena" rows="4">${producto.reseñas}</textarea>
+                <textarea readonly class="form-control-plaintext" id="staticResena" rows="4">${producto.reviews}</textarea>
         </div>`;
         }
         
@@ -326,9 +331,12 @@ const mostrarModal = (idProducto) => {
 const calcularCompra = () => {
     const objetosRecuperados = JSON.parse(localStorage.getItem('objetos'));
     const consumoActual = JSON.parse(localStorage.getItem('consumo'));
+    const contadorActual = JSON.parse(localStorage.getItem('contador'));
+
     var div = document.getElementById('productosComprados');
 
     if ((div !== null) && (objetosRecuperados)) {
+        div.innerHTML = '';
         objetosRecuperados.forEach(compras => {
             div.innerHTML +=
                 `<div class="tarjetaProducto fondo-blanco mb-2" id="div${compras.idProducto}">
@@ -336,7 +344,11 @@ const calcularCompra = () => {
                     <div class="imagenProductoO" id="imagenProductoC">
                         <img src="${compras.imagen}" width="60" height="60" alt="${compras.nombre}">
                     </div>
-                    <div class="div3 cestaDescripcion" id="cantPrecioProductoC">${compras.cantidad} x ${(parseInt(compras.precioUnidad)).toLocaleString('es', { style: 'currency', currency: 'Lps' })}</div>                
+                    <div class="div3 cestaDescripcion" id="cantPrecioProductoC">
+                        <input type="text" readonly class="form-control-plaintext" name="totalComprado${contadorActual}"
+                            id="totalComprado${contadorActual}" style="text-align: right;"
+                            value="${compras.cantidad} x ${(parseInt(compras.precioUnidad)).toLocaleString('es', { style: 'currency', currency: 'Lps' })}">
+                    </div>                
                     <div class="subtotal">Subtotal</div>
                     <div class="div5 cestaDescripcion" id="subtotalPrecioC">${((compras.precioUnidad) * (compras.cantidad)).toLocaleString('es', { style: 'currency', currency: 'Lps' })}</div>
                     <div class="icono" id="ePed${compras.idProducto}" onclick="eliminarPedido(${compras.idProducto});"><i class="fa-regular fa-trash-can"></i></div>
@@ -344,9 +356,12 @@ const calcularCompra = () => {
         });
     }
     
-    document.getElementById('noArticulos').value = consumoActual[0].productosComprados || '0';
+    var numeroCompra = document.getElementById('noArticulos');
+    if (numeroCompra !== null) {
+        numeroCompra.value = consumoActual[0].productosComprados || '0';
+    }    
 
-    if (consumoActual) {
+    if ((consumoActual) && (document.getElementById('totalComprado') !== null) ) {
         document.getElementById('totalComprado').value = (consumoActual[0].subtotal).toFixed(2);
         
         document.getElementById('totalImpuesto').value = (consumoActual[0].impuesto).toFixed(2);

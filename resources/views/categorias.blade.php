@@ -44,7 +44,7 @@
                         <i class="fa-solid fa-circle fa-stack-2x" style="color: #195E95;"></i>
                         <i class="fa-solid fa-cart-shopping fa-stack-1x fa-inverse" data-bs-toggle="offcanvas"
                             data-bs-target="#cestaCompra"></i>
-                        <span id="numeroCompra">3</span>
+                        <span id="numeroCompra">0</span>
                     </span>
                 </div>
             </div>

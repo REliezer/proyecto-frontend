@@ -3,6 +3,7 @@
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\SubcategoriaController;
+use App\Http\Controllers\VentaController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,9 +25,12 @@ Route::get('categorias', [CategoriaController::class, 'index'])->name('categoria
 
 Route::get('obtenerCategorias', [CategoriaController::class, 'categorias'])->name('categorias.categorias');
 
-Route::get('subcategorias/{idCategoria}', [SubcategoriaController::class, 'index'])->name('subcategorias.index');
 
-Route::get('subcategorias/productos/{idCategoria}/{idSubcategoria}',
+
+Route::get('subcategorias/{descripcion}', [SubcategoriaController::class, 'index'])->name('subcategorias.index');
+
+
+Route::get('subcategorias/productos/{nombreCategoria}/{nombreSubcategoria}',
             [SubcategoriaController::class, 'productosSubcategoria'])->name('subcategorias.productos');
 
 
@@ -34,6 +38,10 @@ Route::get('productos', [ProductoController::class, 'index'])->name('productos.i
 
 Route::get('finalizar', [ProductoController::class, 'finalizar'])->name('productos.finalizar');
 
-Route::get('productos/buscar/{idProducto}', [ProductoController::class, 'buscarProducto'])->name('productos.buscarProducto');
+Route::get('productos/buscar/{idProducto}', [ProductoController::class,
+            'buscarProducto'])->name('productos.buscarProducto');
 
 Route::get('productos/all', [ProductoController::class, 'productos'])->name('productos.all');
+
+//crear venta
+Route::POST('ventas/finalizar', [VentaController::class, 'finalizar'])->name('ventas.finalizar');

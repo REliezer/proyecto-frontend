@@ -30,7 +30,7 @@
                     <button class="btn btn-outline-light dropdown-toggle" type="button" data-bs-toggle="dropdown"
                         aria-expanded="false">Categorias</button>
                     <ul class="dropdown-menu" id="categoriasMenu">
-
+                        
                     </ul>
                     <input type="text" class="form-control" placeholder="Buscar" aria-label="Buscar"
                         aria-describedby="button-addon2">
@@ -44,7 +44,7 @@
                         <i class="fa-solid fa-circle fa-stack-2x" style="color: #195E95;"></i>
                         <i class="fa-solid fa-cart-shopping fa-stack-1x fa-inverse" data-bs-toggle="offcanvas"
                             data-bs-target="#cestaCompra"></i>
-                        <span id="numeroCompra">3</span>
+                        <span id="numeroCompra">0</span>
                     </span>
                 </div>
             </div>
@@ -55,10 +55,10 @@
             <div class="list-group">
                 <a class="list-group-item list-group-item-action active" aria-current="true">SubCategorias
                 </a>
-                @foreach ($subcategorias as $item)
-                <a href="{{ route('subcategorias.productos', ['idCategoria' => $item->idCategoria, 'idSubcategoria' => $item->idSubcategoria]) }}"
+                @foreach ($subcategorias_body as $item)
+                <a href="{{ route('subcategorias.productos',['nombreCategoria' => $nombreCategoria, 'nombreSubcategoria' => $item->description]) }}"
                     class="list-group-item list-group-item-action">
-                    {{ $item->descripcion }}
+                    {{ $item->description }}
                 </a>
                 @endforeach
             </div>
@@ -66,56 +66,100 @@
         <div class="vr" style="margin: 25px 0"></div>
         <div class="contenedor-producto">
             <div class="titulo">
-                <h2 class="text-start">{{ $categoriasVisitada->descripcion }}</h2>
+                <h2 class="text-start">{{ $nombreCategoria }}</h2>
             </div>
             <div class="contenido">
-                @forelse ($productos as $item)
-                <div class="card shadow rounded">
-                    <img src="{{ $item->imagen}}" alt="imagen" class="card-img-top p-1" 
-                        data-bs-toggle="modal" data-bs-target="#modalProducto" onclick="mostrarModal({{ $item->idProducto }})">
+                @forelse ($productosPaginados as $item)
+                <div class="card border-primary shadow rounded">
+                    <div style="text-align: center;">
+                        <img src="{{ $item->picture}}" alt="imagen" class="card-img-top p-1" style="width: 85%;"
+                        data-bs-toggle="modal" data-bs-target="#modalProducto" onclick="mostrarModal({{ $item->idProduct }})">
+                    </div>
                     <div class="card-body">
-                        <h5 class="card-title">{{ $item->nombre}}</h5>
+                        <h5 class="card-title">{{ $item->name}}</h5>
                         <span class="card-text d-inline-block text-truncate" style="max-width: 150px; max-height: 5em;">
-                            {{ $item->descripcion}}
+                            {{ $item->description}}
                         </span>
-                        <p class="card-text">Lps. {{ $item->precioUnidad}}</p>
+                        <p class="card-text">Lps. {{ $item->unityPrice}}</p>
+                    </div>
+                    <div class="card-footer text-body-secondary">
                         <div class="row d-flex mb-3 row" style="justify-content: space-evenly">
                             <div class="col-4">
                                 <button type="button" class="btn btn-outline-primary"
-                                    onclick="menos({{ $item->idProducto}});">
+                                onclick="menos({{ $item->idProduct}});">
                                     <i class="fa-solid fa-circle-minus"></i>
                                 </button>
 
                             </div>
                             <div class="col-4 m-0">
                                 <input type="number" class="form-control" value="1"
-                                    id="cantidadProducto{{ $item->idProducto}}">
+                                    id="cantidadProducto{{ $item->idProduct}}">
                             </div>
                             <div class="col-4">
                                 <button type="button" class="btn btn-outline-primary"
-                                    onclick="mas({{ $item->idProducto}});">
+                                    onclick="mas({{ $item->idProduct}});">
                                     <i class="fa-solid fa-circle-plus"></i>
                                 </button>
                             </div>
                         </div>
                         <div class="d-flex mb-2 mt-2" style="justify-content: center">
-                            <a href="#" class="btn btn-primary" onclick="agregarCompra({{ $item->idProducto}});">
+                            <a href="#" class="btn btn-primary" onclick="agregarCompra({{ $item->idProduct}});">
                                 Añadir al carrito
                             </a>
                         </div>
                     </div>
                 </div>
-                
                 @empty
                 <div style="text-align: center;">
                     <img src="{{ asset('img/5203299.jpg') }}" alt="" style="width: 50%;">
                 </div>
                 @endforelse
-                <div class="d-flex justify-content-center">
-                    {{ $productos->links() }}
-                </div>
+                
             </div>
+            <div class="d-flex justify-content-center">
+                <ul class="pagination">
+                    {{-- Anterior Page Link --}}
+                    @if ($productosPaginados->onFirstPage())
+                        <li class="page-item disabled" aria-disabled="true" aria-label="@lang('pagination.previous')">
+                            <span class="page-link" aria-hidden="true">&lsaquo;</span>
+                        </li>
+                    @else
+                        <li class="page-item">
+                            <a class="page-link" href="{{ $productosPaginados->previousPageUrl() }}" rel="prev" aria-label="@lang('pagination.previous')">&lsaquo;</a>
+                        </li>
+                    @endif
             
+                    {{-- Pagination Elements --}}
+                    @foreach ($productosPaginados as $element)
+                        {{-- "Three Dots" Separator --}}
+                        @if (is_string($element))
+                            <li class="page-item disabled" aria-disabled="true"><span class="page-link">{{ $element }}</span></li>
+                        @endif
+            
+                        {{-- Array Of Links --}}
+                        @if (is_array($element))
+                            @foreach ($element as $page => $url)
+                                @if ($page == $productosPaginados->currentPage())
+                                    <li class="page-item active" aria-current="page"><span class="page-link">{{ $page }}</span></li>
+                                @else
+                                    <li class="page-item"><a class="page-link" href="{{ $url }}">{{ $page }}</a></li>
+                                @endif
+                            @endforeach
+                        @endif
+                    @endforeach
+            
+                    {{-- Siguiente Page Link --}}
+                    @if ($productosPaginados->hasMorePages())
+                        <li class="page-item">
+                            <a class="page-link" href="{{ $productosPaginados->nextPageUrl() }}" rel="next" aria-label="@lang('pagination.next')">&rsaquo;</a>
+                        </li>
+                    @else
+                        <li class="page-item disabled" aria-disabled="true" aria-label="@lang('pagination.next')">
+                            <span class="page-link" aria-hidden="true">&rsaquo;</span>
+                        </li>
+                    @endif
+                </ul>
+            </div>
         </div>
     </div>
 

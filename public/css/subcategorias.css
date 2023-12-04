@@ -53,6 +53,10 @@
         color: #000;
         background-color: #fff;
     }
+    .card-footer{
+        background-color: #3c75d7cb !important;
+        border-top: none;
+    }
 }
 
 .card-text{
@@ -65,4 +69,10 @@
     font-family: 'Roboto', sans-serif;
     background: linear-gradient(90deg, #195E95, #3c75d7);
     color: white;
+}
+
+.card-footer{
+    font-family: 'Roboto', sans-serif;
+    background-color: #fff !important;
+    border-top: none;
 }

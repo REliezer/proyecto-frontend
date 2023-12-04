@@ -31,7 +31,7 @@
                     <button class="btn btn-outline-light dropdown-toggle" type="button" data-bs-toggle="dropdown"
                         aria-expanded="false">Categorias</button>
                     <ul class="dropdown-menu" id="categoriasMenu">
-                        
+
                     </ul>
                     <input type="text" class="form-control" placeholder="Buscar" aria-label="Buscar"
                         aria-describedby="button-addon2">
@@ -45,7 +45,7 @@
                         <i class="fa-solid fa-circle fa-stack-2x" style="color: #195E95;"></i>
                         <i class="fa-solid fa-cart-shopping fa-stack-1x fa-inverse" data-bs-toggle="offcanvas"
                             data-bs-target="#cestaCompra"></i>
-                        <span id="numeroCompra">3</span>
+                        <span id="numeroCompra">0</span>
                     </span>
                 </div>
             </div>
@@ -57,29 +57,29 @@
                 <div class="titulo">
                     <h2 class="text-start">Información de envio y de pago</h2>
                 </div>
-                <div class="producto-contenido">
-                    <div class="producto-compra">
-                        <div id="productosComprados">
+                <form method="" action="">
+                    @csrf
+                    @method('POST')
+                    <div class="producto-contenido">
+                        <div class="producto-compra">
+                            <div id="productosComprados">
 
+                            </div>
                         </div>
-                    </div>
-                    <div class="venta">
-                        <form method="POST" action=" ">
-                            @csrf
-                            @method('POST')
+                        <div class="venta">
                             <div class="mb-3 row">
                                 <label for="staticPrecio" class="col-sm-6 col-form-label"
                                     style="text-align: left;">Fecha</label>
                                 <div class="col-sm-4">
-                                    <input type="text" readonly class="form-control-plaintext"
-                                    id="staticFecha" style="text-align: right;" value="">
+                                    <input type="text" readonly class="form-control-plaintext" name="staticFecha"
+                                        id="staticFecha" style="text-align: right;" value="">
                                 </div>
                             </div>
                             <div class="mb-3 row">
                                 <label for="staticPrecio" class="col-sm-8 col-form-label"
                                     style="text-align: left;">Total de Articulos Comprados</label>
                                 <div class="col-sm-2">
-                                    <input type="text" readonly class="form-control-plaintext"
+                                    <input type="text" readonly class="form-control-plaintext" name="noArticulos"
                                         id="noArticulos" style="text-align: right;" value="">
                                 </div>
                             </div>
@@ -87,7 +87,7 @@
                                 <label for="staticPrecio" class="col-sm-4 col-form-label"
                                     style="text-align: left;">Subtotal</label>
                                 <div class="col-sm-6">
-                                    <input type="text" readonly class="form-control-plaintext"
+                                    <input type="text" readonly class="form-control-plaintext" name="totalComprado"
                                         id="totalComprado" style="text-align: right;" value=" ">
                                 </div>
                             </div>
@@ -95,7 +95,7 @@
                                 <label for="staticPrecio" class="col-sm-4 col-form-label"
                                     style="text-align: left;">ISV</label>
                                 <div class="col-sm-6">
-                                    <input type="text" readonly class="form-control-plaintext"
+                                    <input type="text" readonly class="form-control-plaintext" name="totalImpuesto"
                                         id="totalImpuesto" style="text-align: right;" value="">
                                 </div>
                             </div>
@@ -103,7 +103,7 @@
                                 <label for="staticPrecio" class="col-sm-4 col-form-label"
                                     style="text-align: left;">Total</label>
                                 <div class="col-sm-6">
-                                    <input type="text" readonly class="form-control-plaintext"
+                                    <input type="text" readonly class="form-control-plaintext" name="totalAPagar"
                                         id="totalAPagar" style="text-align: right;" value="">
                                 </div>
                             </div>
@@ -111,7 +111,8 @@
                                 <label for="staticPrecio" class="col-sm-4 col-form-label"
                                     style="text-align: left;">Metodo de Pago</label>
                                 <div class="col-sm-6">
-                                    <select class="form-select" aria-label="Selecciona un metodo de pago" id="metodoPago" onchange="metodoPago()">
+                                    <select class="form-select" aria-label="Selecciona un metodo de pago"
+                                        id="metodoPago">
                                         <option selected>Selecciona un metodo de pago</option>
                                         <option value="1">Efectivo</option>
                                         <option value="2">Tarjeta Debito/Credito</option>
@@ -141,17 +142,63 @@
                                     </div>
                                 </div>
                             </div>
+                            @extends('layout')
+                            @section('content')
                             <div class="row text-center mb-3">
                                 <div class="col-sm-6">
-                                    <button type="submit" class="btn btn-success">Enviar</button>
+                                    <button type="button" class="btn btn-success" onclick="finalizarCompra()">
+                                        Enviar
+                                    </button>
                                 </div>
                                 <div class="col-sm-6">
                                     <a class="btn btn-primary" href="{{route('categorias.index')}}">Seguir Comprando</a>
                                 </div>
+                                
                             </div>
-                        </form>
+                            @endsection
+                            @section('scripts')
+                                <script>
+                                    function finalizarCompra() {
+                                        const datosLocalStorage = JSON.parse(localStorage.getItem('objetos'));
+                                        const consumoActual = JSON.parse(localStorage.getItem('consumo'));
+                                        const contadorFinal = JSON.parse(localStorage.getItem('contador'));
+
+
+                                        if (datosLocalStorage && consumoActual) {
+                                            fetch('{{ route('ventas.finalizar') }}', {
+                                                method: 'POST',
+                                                headers: {
+                                                    'Content-Type': 'application/json',
+                                                    'X-CSRF-TOKEN': '{{ csrf_token() }}', // Incluye el token CSRF
+                                                },
+                                                body: JSON.stringify({ objetos:datosLocalStorage,
+                                                                        consumo:consumoActual,
+                                                                        contador:contadorFinal
+                                                                    }),
+                                            })
+                                                .then(response => {
+                                                    if (!response.ok) {
+                                                        throw new Error(`HTTP error! Status: ${response.status}`);
+                                                    }
+                                                    return response.json();
+                                                })
+                                                .then(data => {
+                                                    console.log(data.mensaje);
+                                                })
+                                                .catch(error => {
+                                                    console.error('Error:', error);
+                                                });
+                                        }else {
+                                            console.log('Uno de los datos del localStorage no está disponible');
+                                        }
+                                    }
+                                    
+                                </script>
+                                @endsection
+                            
+                        </div>
                     </div>
-                </div>
+                </form>
             </div>
 
         </div>
@@ -203,6 +250,8 @@
     </div>
 
     <script src="{{ asset('js/main.js') }}"></script>
+    <script src="{{ asset('js/finalizarCompra.js') }}"></script>
+
 </body>
 
 </html>
