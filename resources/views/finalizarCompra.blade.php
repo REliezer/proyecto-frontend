@@ -188,6 +188,13 @@
                                                 })
                                                 .catch(error => {
                                                     console.error('Error:', error);
+
+                                                    localStorage.removeItem('objetos');
+                                                    localStorage.removeItem('consumo');
+                                                    localStorage.removeItem('contador');
+                                                    localStorage.removeItem('usuario');
+
+                                                    console.log('localStorage borrado después de finalizar la compra.');
                                                 });
                                         }else {
                                             console.log('Uno de los datos del localStorage no está disponible');
