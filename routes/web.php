@@ -4,6 +4,9 @@ use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\SubcategoriaController;
 use App\Http\Controllers\VentaController;
+use App\Http\Controllers\CategoriasAdminController;
+use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\ProductosAdminController;
 use Illuminate\Support\Facades\Route;
 
 /*

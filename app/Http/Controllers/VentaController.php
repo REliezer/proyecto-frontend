@@ -102,7 +102,12 @@ class VentaController extends Controller{
             ], $responseDetalle->getStatusCode());
         }
 
-        return response()->json(['success' => true, 'mensaje' => $contador]);
+        if ((($response->getStatusCode() == 200) &&
+             ($responseDetalle->getStatusCode() == 200) &&
+             ($responseVenta->getStatusCode() == 200))) {
+            return redirect(route('categorias.index'));
+        }
+        //return response()->json(['success' => true, 'mensaje' => $contador]);
 
 
     }

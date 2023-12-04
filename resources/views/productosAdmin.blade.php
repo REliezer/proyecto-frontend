@@ -17,10 +17,9 @@
     <link rel="stylesheet" href="{{ asset('css/productos-admin.css') }}">
 </head>
 <body>
-    
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">SoftBytes</a>
+            <a class="navbar-brand" href="{{ route('categorias.index') }}">SoftBytes</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation">
@@ -45,7 +44,7 @@
                         <i class="fa-solid fa-circle fa-stack-2x" style="color: #195E95;"></i>
                         <i class="fa-solid fa-cart-shopping fa-stack-1x fa-inverse" data-bs-toggle="offcanvas"
                             data-bs-target="#cestaCompra"></i>
-                        <span id="numeroCompra">3</span>
+                        <span id="numeroCompra">0</span>
                     </span>
                 </div>
             </div>
