@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="{{ asset('css/carrito.css') }}">
 </head>
 
-<body>
+<body class="barra-navegacion">
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
             <a class="navbar-brand" href="{{ route('categorias.index') }}">SoftBytes</a>
@@ -54,20 +54,23 @@
     <div class="p-4">
         <div class="centrar">
             <div class="container rounded p-4 border m-3" style="width: 40%; background-color: #FFFFFF">
-                <form>
+                <form method="GET" action="{{ route('clientes.loginCorreo') }}">
+                    @csrf
+                    @method('GET')
                     <div class="centrar titulo">
                         <h3>Inicia Sesión</h3>
                     </div><br>
                     <div class="mb-4">
                         <label for="exampleInputPassword1" class="form-label">Correo electrónico</label>
-                        <input type="email" class="form-control" name="correo" id="">
+                        <input type="email" class="form-control" name="correo" id="correo">
                     </div>
                     <div class="mb-4">
                         <label for="exampleInputPassword1" class="form-label">Contraseña</label>
-                        <input type="password" class="form-control" name="contraseña">
+                        <input type="password" class="form-control" name="contraseña" id="contra">
                     </div>
                     <div class="centrar">
-                        <button style="background-color: #037BD4; color: #FFFFFF" type="submit" class="btn">INICIAR
+                        <button style="background-color: #037BD4; color: #FFFFFF" type="submit" class="btn"
+                            onclick="iniciarSesion()">INICIAR
                             SESIÓN</button>
                     </div>
                 </form>
@@ -127,7 +130,7 @@
     </div>
 
     <script src="{{ asset('js/main.js') }}"></script>
-
+    <script src="{{ asset('js/clientes.js') }}"></script>
 </body>
 
 </html>

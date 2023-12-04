@@ -19,8 +19,6 @@ const finalizarPedido = async () => {
     }
 
     const nuevaOrden = await fetch(`http://localhost:8080/auth/order/crear?idCliente=${idCliente}`,
-        //const nuevaOrden = await fetch(`http://localhost/proyecto-frontend/public/ventas/store/${total}`,
-
         {
             method: 'POST',
             headers: {
@@ -31,11 +29,5 @@ const finalizarPedido = async () => {
         });
     const idPedido = await nuevaOrden.text();
     console.log('idPedido', idPedido);
-
-}
-
-
-const finalizar = () => {
-    
 
 }

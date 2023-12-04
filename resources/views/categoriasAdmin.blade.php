@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="{{ asset('css/productos.css') }}">
     <link rel="stylesheet" href="{{ asset('css/productos-admin.css') }}">
 </head>
-<body>
+<body class="barra-navegacion">
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
             <a class="navbar-brand" href="{{ route('categorias.index') }}">SoftBytes</a>
@@ -61,5 +61,6 @@
         @endforeach
     </div>
 
+    <script src="{{ asset('js/main.js') }}"></script>
 </body>
 </html>

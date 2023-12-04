@@ -16,7 +16,7 @@
 
     <script src="{{ asset('js/productos-admin.js') }}"></script>  
 </head>
-<body>
+<body class="barra-navegacion">
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
             <a class="navbar-brand" href="{{ route('categorias.index') }}">SoftBytes</a>
@@ -118,5 +118,6 @@
     </div>
     </div>
   
+    <script src="{{ asset('js/main.js') }}"></script>
 </body>
 </html>

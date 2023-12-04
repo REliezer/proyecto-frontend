@@ -162,7 +162,7 @@
                                         const datosLocalStorage = JSON.parse(localStorage.getItem('objetos'));
                                         const consumoActual = JSON.parse(localStorage.getItem('consumo'));
                                         const contadorFinal = JSON.parse(localStorage.getItem('contador'));
-
+                                        const usuario = JSON.parse(localStorage.getItem('usuario'));
 
                                         if (datosLocalStorage && consumoActual) {
                                             fetch('{{ route('ventas.finalizar') }}', {
@@ -173,7 +173,8 @@
                                                 },
                                                 body: JSON.stringify({ objetos:datosLocalStorage,
                                                                         consumo:consumoActual,
-                                                                        contador:contadorFinal
+                                                                        contador:contadorFinal,
+                                                                        usuario:usuario
                                                                     }),
                                             })
                                                 .then(response => {
@@ -250,8 +251,6 @@
     </div>
 
     <script src="{{ asset('js/main.js') }}"></script>
-    <script src="{{ asset('js/finalizarCompra.js') }}"></script>
-
 </body>
 
 </html>

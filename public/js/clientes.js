@@ -9,21 +9,28 @@ function transformSelectedInputs() {
         formData[input.name] = input.value;
     }
 
-    document.getElementById('formData').value =  formData; //JSON.stringify(formData); // JSON.parse(formData); 
+    document.getElementById('formData').value = formData; //JSON.stringify(formData); // JSON.parse(formData); 
 
     // Submit the form
     document.getElementById('myForm').submit();
 }
 
 const iniciarSesion = async () => {
-    var correo = document.getElementById('correoElectronico').value;
-    var contrasena = document.getElementById('contrasena').value;
+    if (!localStorage.getItem('usuario')) {
+        localStorage.setItem('usuario', JSON.stringify([
+            {
+                username: 0,
+                password: 0,
+                id: 0
+            }
+        ]));
+    }
+    const usuarioRegistrado = JSON.parse(localStorage.getItem('usuario'));
 
-    const myModal = new bootstrap.Modal(document.getElementById('modalLogin'), {
-        keyboard: false
-    })
+    var correo = document.getElementById('correo').value;
+    var contrasena = document.getElementById('contra').value;
 
-    const buscarCliente = await fetch(`http://localhost:6060/clientes/${correo}`,
+    const buscarClienteId = await fetch(`http://localhost/proyecto-frontend/public/clientes/buscar/${correo}`,
         {
             method: 'GET',
             headers: {
@@ -31,36 +38,39 @@ const iniciarSesion = async () => {
             },
         }
     );
-    const result = await buscarCliente.json();
+    const result = await buscarClienteId.text();
+    console.log('result', result);
 
-    document.getElementById('modalPie').innerHTML = '';
-    if ((result[0].correoElectronico === correo) && (result[0].contrasena === contrasena)) {
-        console.log(`Bienvenido ${result[0].nombre}`);
+    if (result !== null) {
+        const buscarClienteId = await fetch(`http://localhost/proyecto-frontend/public/clientes/buscarId/${parseInt(result)}`,
+            {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            }
+        );
+        const resultado = await buscarClienteId.json();
+        console.log('result', resultado);
+        if (resultado) {
+            usuarioRegistrado.splice(0, usuarioRegistrado.length, {
+                username: resultado.username,
+                password: contrasena,
+                id: parseInt(result)
+            });
 
-        document.getElementById('modalMensaje').innerHTML =
-            `<i class="fa-solid fa-circle-check fa-2x fa-pull-right" style="color: #316120"></i>
-            Bienvenido ${nombreCorto(result)}`;
+            localStorage.setItem('usuario', JSON.stringify(usuarioRegistrado));
 
-        document.getElementById('modalPie').innerHTML =
-            `<button type="button" class="btn btn-success" data-bs-dismiss="modal" onclick="mostrarInicio()">Aceptar</button>`;
-
-        clienteLogueado[clienteLogueado.length] = {
-            "nombre": result[0].nombre,
-            "apellidos": result[0].apellidos,
-            "correoElectronico": result[0].correoElectronico,
+            const categorias = await fetch(`http://localhost/proyecto-frontend/public/categorias`,
+                {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                }
+            );
         }
-    } else {
-        console.log('Usuario Incorrecto');
-        document.getElementById('modalMensaje').innerHTML =
-            `<i class="fa-solid fa-circle-exclamation fa-2x fa-pull-left" style="color: #A0333C"></i>
-        ¡Correo Electronico o Contraseña incorrecto!`;
 
-        document.getElementById('modalPie').innerHTML =
-            `<button type="button" class="btn btn-danger" data-bs-dismiss="modal">Aceptar</button>`;
     }
-    console.log(clienteLogueado[0]);
-    conectado = true;
-    inicio();
-    document.getElementById('nombreCompletoFinal').value = `${clienteLogueado[0].nombre} ${clienteLogueado[0].apellidos}`;
-    myModal.show();
+
 }

@@ -3,10 +3,12 @@
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\SubcategoriaController;
+use App\Http\Controllers\SubCategoriasAdminController;
 use App\Http\Controllers\VentaController;
 use App\Http\Controllers\CategoriasAdminController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\ProductosAdminController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -57,6 +59,12 @@ Route::get('clientes/crear', [ClienteController::class, 'crearCliente'])->name('
 Route::get('clientes/editar', [ClienteController::class, 'actualizarCliente'])->name('clientes.actualizar');
 
 Route::get('clientes/login', [ClienteController::class, 'login'])->name('clientes.login');
+
+Route::get('clientes/loginCorreo/', [ClienteController::class, 'loginCorreo'])->name('clientes.loginCorreo');
+
+Route::get('clientes/buscar/{email}', [ClienteController::class, 'buscarCliente'])->name('clientes.buscar');
+
+Route::get('clientes/buscarId/{id}', [ClienteController::class, 'buscarClienteId'])->name('clientes.buscarId');
 
 Route::get('admin', [CategoriasAdminController::class, 'categorias'])->name('admin.categorias');
 
