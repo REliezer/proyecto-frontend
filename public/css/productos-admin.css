@@ -1,0 +1,30 @@
+.centrar {
+    align-items: center; 
+    display: flex; 
+    justify-content: center;
+}
+
+.img-thumbnail {
+    width: 300px;
+    height: auto;
+}
+
+.menu {
+    display: flex;
+    gap: 40px; 
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+.producto {
+    display: flex; 
+    flex-direction: column;
+}
+
+.titulo {
+    font-family: 'Roboto', sans-serif;
+    margin: 20px 10px 0 10px;
+    padding: 0 20px 0 20px;
+    color: #3c75d7;
+    font-weight: bold;
+}
