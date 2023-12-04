@@ -45,3 +45,23 @@ Route::get('productos/all', [ProductoController::class, 'productos'])->name('pro
 
 //crear venta
 Route::POST('ventas/finalizar', [VentaController::class, 'finalizar'])->name('ventas.finalizar');
+
+// Rutas - Administrador - Creacion cliente
+Route::post('clientes/crear/guardar', [ClienteController::class, 'guardarCliente'])->name('clientes.guardar');
+
+Route::get('clientes/crear', [ClienteController::class, 'crearCliente'])->name('clientes.crear');
+
+Route::get('clientes/editar', [ClienteController::class, 'actualizarCliente'])->name('clientes.actualizar');
+
+Route::get('clientes/login', [ClienteController::class, 'login'])->name('clientes.login');
+
+Route::get('admin', [CategoriasAdminController::class, 'categorias'])->name('admin.categorias');
+
+Route::get('admin/subcategorias/{categoria}/{idCategory}', [SubCategoriasAdminController::class, 'subCategorias'])->name('admin.subCategorias');
+
+Route::get('admin/subcategorias/productos/{idCategory}/{subCategory}/{idSubCategory}', [ProductosAdminController::class, 'productos'])->name('admin.productos');
+
+Route::get('admin/crear/{idCategory}/{idSubCategory}', [ProductosAdminController::class, 'crearProducto'])->name('admin.crear');
+
+Route::post('admin/crear/guardar/{idSubCategory}/{idCategory}', [ProductosAdminController::class, 'guardarProducto'])->name('admin.guardar');
+//Fin Rutas - Administrador - Creacion cliente
